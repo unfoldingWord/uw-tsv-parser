@@ -3,6 +3,7 @@
 /styleguide
 dist
 archive
+yarn.lock
 
 # Logs
 logs

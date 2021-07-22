@@ -6,7 +6,11 @@ const { styles, theme } = require('./styleguide.styles');
 
 let sections = [
 	{
-		name: 'File/string to TSV Table',
+		name: 'README',
+		content: 'README.md',
+	},
+	{
+		name: 'TSV String to Table',
 		content: 'src/core/TsvStringToTable.md',
 	},
 
@@ -30,7 +34,7 @@ module.exports = {
 	exampleMode: 'expand',
 	pagePerSection: true,
 	sections,
-	components: 'src/components/**/[A-Z]*.js',
+	components: 'src/core/**/[A-Z]*.js',
 	defaultExample: true,
 	moduleAliases: {
 		'rsg-example': path.resolve(__dirname, 'src'),
