@@ -19,42 +19,47 @@ function convertTsvToValue(incomingString) {
   return newValue;
 }
 
+/*
+Returns: 
+`{header: hvalue, data: dvalue, errors: evalue}`
+*/
 export function tsvStringToTable(content) {
   // remove trailing newline if present
   // remove any CR characters
   // then split on new line
   const rows = content.trim().replaceAll('\r','').split('\n');
-  let errorMessages = [];
   let expectedNumberOfColumns = -1;
+  let errors = [];
+  let header = [];
   let table = [];
   for (let i=0; i<rows.length; i++) {
     let columns = rows[i].split('\t');
     if ( i === 0 ) {
       // record the number of columns
       expectedNumberOfColumns = columns.length;
+      header = columns;
+      continue;
+      // the header receives no further processing
     }
 
     // validate number of columns
     if ( columns.length !== expectedNumberOfColumns ) {
-      errorMessages.push(
-        `Row ${i} has incorrect number of columns. Expected ${expectedNumberOfColumns}, found ${columns.length}`
-      );
-      continue;
+      // first integer is row number; second is number of columns found
+      let error = [];
+      error.push(i);
+      error.push(columns.length);
+      errors.push(error);
     }
 
     // process lossless conversions
-    for (let j=0; j<expectedNumberOfColumns; j++) {
+    for (let j=0; j<columns.length; j++) {
       columns[j] = convertTsvToValue(columns[j]);
     }
 
     // add to output table
     table.push(columns);
   }
-
-  if ( errorMessages.length !== 0 ) {
-    throw Error(errorMessages[0])
-  }
-
-  console.log("table=",table);
-  return table;
+  const tableObject = {header: header, data: table, errors: errors};
+  console.log("tableObject=",tableObject);
+  return tableObject;
 }

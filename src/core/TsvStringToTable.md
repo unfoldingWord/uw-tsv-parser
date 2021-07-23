@@ -11,14 +11,14 @@ a2\tb2\tc2
 `
 
 let results;
-let table;
+let tableObject;
 try {
-  table = tsvparser.tsvStringToTable(text);
-  const numrows = table.length;
-  const header = table[0].join(",");
+  tableObject = tsvparser.tsvStringToTable(text);
+  const numrows = tableObject.data.length;
+  const header = tableObject.header.join(",");
   results = `Number of rows is ${numrows}`;
   results += `\n\n... with header ${header}`;
-  results += `\n\ncell 1,2 is:\n${table[1][2]}`;
+  results += `\n\ncell 1,2 is:\n${tableObject.data[0][2]}`;
 } catch (err) {
   results = err;
 }
