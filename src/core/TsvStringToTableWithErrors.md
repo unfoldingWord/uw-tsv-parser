@@ -3,7 +3,8 @@ This demonstrates how to process parsing errors.
 ```js
 import * as tsvparser from './uw-tsv-parser.js';
 
-const text  = 
+function Component() {
+  const text  = 
 `A\tB\tC
 a1\tb1\tthis is a backslash "\\"
 a1\tnot enough columns
@@ -11,9 +12,8 @@ a2\tb2\tc2
 a3\tb3\tc3\ttoo many columns
 `
 
-let results;
-let tableObject;
-try {
+  let results;
+  let tableObject;
   tableObject = tsvparser.tsvStringToTable(text);
   const numrows = tableObject.data.length;
   const header = tableObject.header.join(",");
@@ -33,11 +33,12 @@ try {
       results += "\n" + tableObject.data[rownum].join(",");
     }
   }
-} catch (err) {
-  results = err;
+  return (
+  <>
+  <pre>{results}</pre>
+  </>
+  )
 }
 ;
-<>
-<pre>{results}</pre>
-</>
+<Component />
 ```
