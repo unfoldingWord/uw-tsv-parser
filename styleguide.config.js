@@ -17,6 +17,14 @@ let sections = [
 		name: 'TSV String to Table with Errors',
 		content: 'src/core/TsvStringToTableWithErrors.md',
 	},
+	{
+		name: 'Table to TSV String',
+		content: 'src/core/TableToTsvString.md',
+	},
+	{
+		name: 'Table to TSV String with Errors',
+		content: 'src/core/TableToTsvStringWithErrors.md',
+	},
 
 ];
 
