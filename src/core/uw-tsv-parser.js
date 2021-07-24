@@ -64,7 +64,6 @@ export function tableToTsvString(incomingTable) {
       }
     }
     data += incomingTable[i].join('\t') + '\n';
-    console.log("row,value:",i,incomingTable[i].join('\t') + '\n');
   }
 
   const tsvObject = {data: data, errors: errors};

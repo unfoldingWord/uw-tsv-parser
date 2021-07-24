@@ -1,5 +1,6 @@
-This is the "happy path", namely, a normal compliant file/string 
-is converted to a 2D array.
+This demo is a test. It shows that the decoding and encoding
+will make a round trip: from string to table and back to string again
+with no differences.
 
 ```js
 import * as tsvparser from './uw-tsv-parser.js';
