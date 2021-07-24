@@ -25,6 +25,10 @@ let sections = [
 		name: 'Table to TSV String with Errors',
 		content: 'src/core/TableToTsvStringWithErrors.md',
 	},
+	{
+		name: 'Round Trip Example',
+		content: 'src/core/RoundTrip.md',
+	},
 
 ];
 

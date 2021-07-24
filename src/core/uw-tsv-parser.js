@@ -18,10 +18,12 @@ function decode(incomingString) {
 
 function encode(incomingString) {
   let newValue = incomingString;
-  newValue = newValue.replaceAll('\n',`\n`);
-  newValue = newValue.replaceAll('\t',`\t`);
-  newValue = newValue.replaceAll('\r',`\r`);
-  newValue = newValue.replaceAll('\\',`\\`);
+  // process any backslash encoding first
+  // otherwise it will find backslashes of the other encodings.
+  newValue = newValue.replaceAll('\\',`\\\\`);
+  newValue = newValue.replaceAll('\n',`\\n`);
+  newValue = newValue.replaceAll('\t',`\\t`);
+  newValue = newValue.replaceAll('\r',`\\r`);
   return newValue;
 }
 
@@ -40,7 +42,6 @@ where dvalue is a string and errors is an array of integer triplets, where:
     if this is not the error on the row, then the value will be -1;
 */
 export function tableToTsvString(incomingTable) {
-  console.log("incomingTable:",incomingTable);
   let data = "";
   let errors = [];
   const expectedNumberOfColumns = incomingTable[0].length;
@@ -63,10 +64,10 @@ export function tableToTsvString(incomingTable) {
       }
     }
     data += incomingTable[i].join('\t') + '\n';
+    console.log("row,value:",i,incomingTable[i].join('\t') + '\n');
   }
 
   const tsvObject = {data: data, errors: errors};
-  console.log("tsvObject=", tsvObject);
   return tsvObject;
 }
 
@@ -117,6 +118,5 @@ export function tsvStringToTable(content) {
     table.push(columns);
   }
   const tableObject = {header: header, data: table, errors: errors};
-  console.log("tableObject=",tableObject);
   return tableObject;
 }
