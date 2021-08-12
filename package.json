@@ -1,7 +1,7 @@
 {
   "name": "uw-tsv-parser",
   "description": "A package for Lossless TSV Conversion.",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "private": false,
   "homepage": "https://unfoldingword.github.io/uw-tsv-parser/",
   "repository": {
