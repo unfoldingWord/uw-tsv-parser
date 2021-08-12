@@ -44,17 +44,20 @@ where dvalue is a string and errors is an array of integer triplets, where:
 export function tableToTsvString(incomingTable) {
   let data = "";
   let errors = [];
-  const expectedNumberOfColumns = incomingTable[0].length;
-  for (let i=0; i<incomingTable.length; i++) {
-    if ( incomingTable[i].length !== expectedNumberOfColumns ) {
+  // copy array in case incoming is deep frozen or a const
+  // deep copy: var newArray = currentArray.map(arr => arr.slice());
+  let _incomingTable = incomingTable.map(row => row.slice());
+  const expectedNumberOfColumns = _incomingTable[0].length;
+  for (let i=0; i<_incomingTable.length; i++) {
+    if ( _incomingTable[i].length !== expectedNumberOfColumns ) {
       const rownum = i;
-      const numcols = incomingTable[i].length;
+      const numcols = _incomingTable[i].length;
       const colnum = -1;
       errors.push([rownum,numcols,colnum]);
     }
-    for (let j=0; j<incomingTable[i].length; j++) {
-      if ( typeof(incomingTable[i][j]) === 'string') {
-        incomingTable[i][j] = encode(incomingTable[i][j]);
+    for (let j=0; j<_incomingTable[i].length; j++) {
+      if ( typeof(_incomingTable[i][j]) === 'string') {
+        _incomingTable[i][j] = encode(_incomingTable[i][j]);
       } else {
         const rownum = i;
         const numcols = 0;
@@ -63,7 +66,7 @@ export function tableToTsvString(incomingTable) {
         // leave data as-is, do not encode
       }
     }
-    data += incomingTable[i].join('\t') + '\n';
+    data += _incomingTable[i].join('\t') + '\n';
   }
 
   const tsvObject = {data: data, errors: errors};
