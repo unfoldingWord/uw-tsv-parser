@@ -88,7 +88,7 @@ export function tsvStringToTable(content) {
   // remove trailing newlines if present
   // remove any CR characters
   // then split on new line
-  const rows = content.trimStart().replace(/\n+$/).replaceAll('\r','').split('\n');
+  const rows = content.trimStart().replace(/\n+$/, '').replaceAll('\r','').split('\n');
   let expectedNumberOfColumns = -1;
   let errors = [];
   let header = [];
