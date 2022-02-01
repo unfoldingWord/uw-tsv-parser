@@ -3,7 +3,10 @@ module.exports = {
 		[
 			'@babel/env',
 			{
-				modules: false,
+              targets: {
+                esmodules: false,
+              },
+				// modules: false,
 				//useBuiltIns: 'usage',
 				//corejs: 3,
 			},
