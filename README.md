@@ -2,7 +2,7 @@
 A Parser and Converter for Lossless TSV
 
 - Click button below to see demos
-- Click <a href='https://github.com/mandolyte/uw-tsv-parser/tree/main/docs/index.html' target='_blank'>here</a> for documentation.
+- Click <a href='https://raw.githubusercontent.com/mandolyte/uw-tsv-parser/main/docs/index.html' target='_blank'>here</a> for documentation.
 
 
 
