@@ -2,8 +2,8 @@
 A Parser and Converter for Lossless TSV
 
 - Click button below to see demos
-- Click <a href='./doc/index.html'>here</a> for documentation.
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/nextjs-fvss75?file=README.md)
+- Click <a href='./docs/index.html' target='_blank'>here</a> for documentation.
+
 
 
 
