@@ -7,4 +7,4 @@ A Parser and Converter for Lossless TSV
 
 
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://github.com/mandolyte/uw-tsv-parser/tree/main/examples)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github.com/mandolyte/uw-tsv-parser/tree/main/examples)
