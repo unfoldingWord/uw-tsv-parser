@@ -7,7 +7,7 @@
    \\ for backslash.
 */
 
-function decode(incomingString) {
+function decode(incomingString: string) {
   let newValue = incomingString;
   newValue = newValue.replaceAll("\\n", '\n');
   newValue = newValue.replaceAll("\\t", '\t');
@@ -16,7 +16,7 @@ function decode(incomingString) {
   return newValue;
 }
 
-function encode(incomingString) {
+function encode(incomingString: string) {
   let newValue = incomingString;
   // process any backslash encoding first
   // otherwise it will find backslashes of the other encodings.
@@ -51,7 +51,7 @@ function encode(incomingString) {
         in the row where the value is not a string;
         if this is not the error on the row, then the value will be -1
  */
-export function tableToTsvString(incomingTable) {
+export function tableToTsvString(incomingTable: string[][]) {
   let data = "";
   let errors = [];
   // copy array in case incoming is deep frozen or a const
@@ -98,7 +98,7 @@ export function tableToTsvString(incomingTable) {
       - the first integer is the row number
       - the second integer is the actual number of columns found
  */
-export function tsvStringToTable(content) {
+export function tsvStringToTable(content: string) {
   // remove leading whitespace
   // remove trailing newlines if present
   // remove any CR characters
@@ -106,7 +106,7 @@ export function tsvStringToTable(content) {
   const rows = content.trimStart().replace(/\n+$/, '').replaceAll('\r','').split('\n');
   let expectedNumberOfColumns = -1;
   let errors = [];
-  let header = [];
+  let header :string[] = [];
   let table = [];
   for (let i=0; i<rows.length; i++) {
     let columns = rows[i].split('\t');
