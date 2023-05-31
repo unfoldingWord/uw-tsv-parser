@@ -7,7 +7,7 @@
    \\ for backslash.
 */
 
-function decode(incomingString) {
+function decode(incomingString: string) {
   let newValue = incomingString;
   newValue = newValue.replaceAll("\\n", '\n');
   newValue = newValue.replaceAll("\\t", '\t');
@@ -16,7 +16,7 @@ function decode(incomingString) {
   return newValue;
 }
 
-function encode(incomingString) {
+function encode(incomingString: string) {
   let newValue = incomingString;
   // process any backslash encoding first
   // otherwise it will find backslashes of the other encodings.
@@ -28,20 +28,30 @@ function encode(incomingString) {
 }
 
 
-/*
-Returns: 
-`{data: dvalue, errors: evalue}`
-where dvalue is a string and errors is an array of integer triplets, where:
-	- the first integer is the row number
-	- the second integer is the actual number of columns 
-    when it does not match the number in the header, 
-    which is the expected number; 
-    if the number of columns do match the value will be zero.
-	- the third integer is the column number (zero based) 
-    in the row where the value is not a string;
-    if this is not the error on the row, then the value will be -1;
-*/
-export function tableToTsvString(incomingTable) {
+/**
+ * This function takes a 2D string array and constructs a TSV string
+ * according to the conventions found here:
+ * https://en.wikipedia.org/wiki/Tab-separated_values
+ * TL;DR the content must be encoded so that the following characters
+ * are replaced by two character escape sequences.
+ * - line feed (newline) characters are replaced with '\n'
+ * - tabs are replaced with '\t'
+ * - carriage returns are replaced by '\r'
+ * - backslash characters are replaced by '\\'
+ * @param {array} incomingTable - 2d array of strings
+ * @returns {object} - in the form {data, errors}
+ * - where data is a string containing the TSV content
+ * - errors is an array of integer triplets:
+ *   - the first integer is the row number
+ *   - the second integer is the actual number of columns 
+        when it does not match the number in the header, 
+        which is the expected number; 
+        if the number of columns do match the value will be zero.
+        - the third integer is the column number (zero based) 
+        in the row where the value is not a string;
+        if this is not the error on the row, then the value will be -1
+ */
+export function tableToTsvString(incomingTable: string[][]) {
   let data = "";
   let errors = [];
   // copy array in case incoming is deep frozen or a const
@@ -73,25 +83,30 @@ export function tableToTsvString(incomingTable) {
   return tsvObject;
 }
 
-/*
-Returns: 
-`{header: hvalue, data: dvalue, errors: evalue}`
-where:
-- header: is the header row
-- data: is the data rows
-- errors is a list of errors, which are pairs of integers:
-  - the first integer is the row number
-  - the second integer is the actual number of columns found
-*/
-export function tsvStringToTable(content) {
-  // remove leading whithespace
+/**
+ * This function takes TSV formatted string and returns a 2D table.
+ * Prior to process, it performs the following normalization steps:
+ * - removes leading whitespace
+ * - removes any trailing newline characters
+ * - removes any carriage return characters
+ * @param {string} content - in TSV format
+ * @returns {object} - in the form {data, errors, header}
+ * where: 
+ * - header is the header row
+ * - data are the data rows, a 2D array of strings
+ * - errors is a list of errors, which are pairs of integers:
+      - the first integer is the row number
+      - the second integer is the actual number of columns found
+ */
+export function tsvStringToTable(content: string) {
+  // remove leading whitespace
   // remove trailing newlines if present
   // remove any CR characters
   // then split on new line
   const rows = content.trimStart().replace(/\n+$/, '').replaceAll('\r','').split('\n');
   let expectedNumberOfColumns = -1;
   let errors = [];
-  let header = [];
+  let header :string[] = [];
   let table = [];
   for (let i=0; i<rows.length; i++) {
     let columns = rows[i].split('\t');
