@@ -6,6 +6,7 @@ export const ColMismatch = () => {
   const router = useRouter();
   const [text, setText] = useState(null);
   const [results, setResults] = useState('Waiting...');
+  const [errList, setErrList] = useState(null);
 
   useEffect(() => {
     async function getText() {
@@ -31,6 +32,7 @@ export const ColMismatch = () => {
       const { data, header, errors } = tsvparser.tsvStringToTable(text);
       console.log('header row:', header);
       console.log('Errors:', errors);
+      setErrList(errors);
       if (errors.length > 0) {
         const expectedColumns = header.length;
         for (let i = 0; i < errors.length; i++) {
@@ -63,10 +65,18 @@ export const ColMismatch = () => {
     <div>
       <h1>Column Mismatch Demo</h1>
       <p>
-        In this demo, one of the rows does not have the same number of columns
-        as the columer header row.
+        In this demo, some rows do not have the correct number of columns.
+        The correct number of columns is the number of columns 
+        found in the columer header row.
+      </p>
+      <p>
+        The raw error array has two integers in each element (itself an array).
+        The first integer is the row number and the second is the number of colmns 
+        actually found.
       </p>
       <pre>{results}</pre>
+      <p>Raw error array:</p>
+      <pre>{JSON.stringify(errList,null,4)}</pre>
       <button onClick={() => router.push('/')}>Close</button>
     </div>
   );
